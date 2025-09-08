@@ -35,9 +35,7 @@ USER app
 
 EXPOSE 3000
 
-# Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:${PORT}/health || exit 1
 
-# Comando de inicialização
 CMD ["npm", "run", "start"]
