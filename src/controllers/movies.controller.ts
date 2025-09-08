@@ -34,6 +34,16 @@ const moviesRouter = Router();
  *         schema:
  *           type: string
  *         description: Filtra por nome do produtor
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Qual pagina
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *         description: Tamanho da pagina (Maximo 1000 por página)
  *     responses:
  *       200:
  *         description: Filmes cadastrados
@@ -44,8 +54,10 @@ moviesRouter.get("/api/movies", async (req: Request, res: Response) => {
   const winner = req.query.winner as string | undefined;
   const year = req.query.year as string | undefined;
   const producer = req.query.producer as string | undefined;
+  const page = req.query.page as number | undefined;
+  const pageSize = req.query.pageSize as number | undefined;
 
-  const results = await useCase.Execute(winner, year, producer);
+  const results = await useCase.Execute(winner, year, producer, page, pageSize);
   res.status(200).json(results);
 });
 

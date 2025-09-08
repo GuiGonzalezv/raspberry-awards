@@ -8,7 +8,7 @@ export class GetMovieUseCase implements IGetMovieUseCase {
     
     constructor (@inject(IMoviesRepositoryToken) private repository: IMovieRepository) {}
 
-    async Execute(winner?: string, year?: string, producer?: string): Promise<MovieModel[]> {
-        return await this.repository.GetMovies(winner ? winner === "true" : undefined, year ? Number(year) : undefined, producer)
+    async Execute(winner?: string, year?: string, producer?: string, page: number = 1, size: number = 1000): Promise<MovieModel[]> {
+        return await this.repository.GetMovies(page, size, winner ? winner === "true" : undefined, year ? Number(year) : undefined, producer)
     }
 }

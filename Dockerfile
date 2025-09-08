@@ -23,7 +23,7 @@ ENV PORT=3000
 
 COPY package*.json tsconfig.json ./
 
-COPY src/data ./data
+COPY src/data ./dist/data
 
 RUN npm ci --omit=dev
 

@@ -7,7 +7,7 @@ import { injectable } from "tsyringe";
 export class MovieRepository implements IMovieRepository {
     constructor(private database: SqlDatabase) {}
 
-    async GetMovies(winner?: boolean, year?: number, producer?: string): Promise<MovieModel[]> {
+    async GetMovies(page: number, size: number, winner?: boolean, year?: number, producer?: string): Promise<MovieModel[]> {
         const filters: string[] = [];
         const params: Record<string, any> = {};
 
@@ -28,6 +28,10 @@ export class MovieRepository implements IMovieRepository {
 
         const whereClause = filters.length ? `WHERE ${filters.join(" AND ")}` : "";
 
+        const offset = (page - 1) * size;
+        params.limit = size;
+        params.offset = offset;
+
         const query = this.database.connection.prepare(`
             SELECT 
                 m.id, 
@@ -41,6 +45,7 @@ export class MovieRepository implements IMovieRepository {
                 LEFT JOIN producers p ON mp.producer_id = p.id
                 ${whereClause}
             GROUP BY m.id
+            LIMIT @limit OFFSET @offset
         `);
 
         const rows = query.all(params) as any[];
@@ -53,4 +58,5 @@ export class MovieRepository implements IMovieRepository {
             Boolean(row.winner)
         ));
     }
+
 }
