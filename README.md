@@ -52,11 +52,10 @@ cd raspberry-awards
 # 2. Instale as dependências
 npm install
 
-# 3. Compile o projeto
-npm run build
+# 3. Execute em dev mode
+npm run dev
 
-# 4. Rode a aplicação
-npm start
+#4. Caso queira substituir o arquivo csv, ele está dentro da pasta src/data (Movielist.csv), é só jogar ali com o mesmo nome
 ```
 
 A API estará disponível em:  
