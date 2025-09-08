@@ -35,4 +35,4 @@ with open("movies.csv", "w", newline="", encoding="utf-8") as csvfile:
         winner = random.choice(["yes", ""])
         writer.writerow([year, title, studio, producer, winner])
 
-print("CSV de 1 milhão de registros gerado com mais variedade!")
+print("CSV de 1 milhão de registros gerado !")

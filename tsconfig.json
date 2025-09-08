@@ -1,36 +1,21 @@
 {
   "compilerOptions": {
-    // File Layout
     "rootDir": "./src",
     "outDir": "./dist",
-
-    // Environment Settings
     "module": "commonjs",
     "target": "esnext",
     "lib": ["esnext"],
-    "types": ["node"],
-
-    // Other Outputs
+    "types": ["node", "jest"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
-    // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "esModuleInterop": true,
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true
     "baseUrl": "./src/",
     "paths": {
       "@/*": ["*"]
     },
-
     "strict": true,
     "verbatimModuleSyntax": false,
     "isolatedModules": true,

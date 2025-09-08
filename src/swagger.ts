@@ -1,6 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
+const env = process.env.NODE_ENV || "development";
 
 const options: swaggerJSDoc.Options = {
   definition: {
@@ -11,7 +12,7 @@ const options: swaggerJSDoc.Options = {
       description: "API para consultar vencedores do Golden Raspberry Awards",
     },
   },
-  apis: ["./src/controllers/*.ts"],
+  apis: env === "development" ? ["./src/controllers/*.ts"] : ["./dist/controllers/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

@@ -1,26 +1,20 @@
-import { IFeedDatabaseRepository, IFeedDatabaseRepositoryToken } from "@/domain/ports/IFeedDatabaseRepository";
-import { GetIntervalResponse, IGetIntervalUseCase } from "@/domain/ports/IGetIntervalUseCase";
+import { IntervalModel } from "@/domain/entities/IntervalModel";
+import { IGetIntervalUseCase } from "@/domain/ports/IGetIntervalUseCase";
+import { IProducerRepository, IProducerRepositoryToken } from "@/domain/ports/IProducerRepository";
 import { inject, injectable } from "tsyringe";
-interface MovieRow {
-  year: string;
-  title: string;
-  studios: string;
-  producers: string;
-  winner: string; 
-}
 
 @injectable()
 export class GetIntervalsUseCase implements IGetIntervalUseCase {
     
-    constructor (@inject(IFeedDatabaseRepositoryToken) private repository: IFeedDatabaseRepository) {}
+    constructor (@inject(IProducerRepositoryToken) private repository: IProducerRepository) {}
 
-    async Execute(): Promise<GetIntervalResponse> {
-        var data = await this.repository.getData()
+    async Execute(): Promise<IntervalModel> {
+        var data = await this.repository.GetInterval()
         
         const minIntervalValue = Math.min(...data.map(e => e.interval))
         const maxIntervalValue = Math.max(...data.map(e => e.interval))
 
-        const response: GetIntervalResponse = {
+        const response: IntervalModel = {
           max: [],
           min: []
         }
