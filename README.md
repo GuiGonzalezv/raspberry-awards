@@ -25,7 +25,14 @@ A aplicação carrega um **arquivo CSV** no banco de dados em memória e disponi
 
 ## ⚡ Performance
 
-Existe um script em python que fiz para gerar csv de teste, fiz testes com 1 milhão de linhas e 10 milhões, ele está na raiz do projeto.
+Existe um script em Python na raiz do projeto que gera arquivos CSV de teste.
+Realizei testes com 1 milhão e 10 milhões de linhas.
+
+Minha ideia principal foi evitar carregar todo o CSV em memória. Para isso, fiz a leitura linha a linha e agrupei em lotes (batches) de 1000 linhas. Assim que atingia esse tamanho, enviava os dados para o banco via bulk insert, repetindo o processo até o final.
+
+Após a carga, a consulta elimina os filmes não vencedores. Em seguida, calcula o ano do primeiro prêmio de cada produtor e o próximo. Caso o produtor não tenha um segundo prêmio, ele é descartado. Com a lista reduzida, busco no backend o menor e o maior intervalo e monto o objeto de resposta.
+
+Com um tamanho de arquivo maior, seria necessário rever a lógica para evitar problemas de memória, mas para esse teste a abordagem foi suficiente.
 
 - Testado com **10 milhões de linhas** no CSV.
 - Tempo de carga: **~4 minutos**.
